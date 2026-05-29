@@ -42,9 +42,12 @@ Install Sonarr, then open the **Web UI** from the Interfaces tab. On first launc
 
 ## Volume and Data Layout
 
-| Volume | Mount Point | Purpose                                         |
-| ------ | ----------- | ----------------------------------------------- |
-| `main` | `/config`   | SQLite database, logs, and configuration files  |
+| Volume                    | Mount Point       | Purpose                                        |
+| ------------------------- | ----------------- | ---------------------------------------------- |
+| `main`                    | `/config`         | SQLite database, logs, and configuration files |
+| `filebrowser` → `data`    | `/mnt/filebrowser`| Shared storage from File Browser (optional)    |
+
+If File Browser is installed, its `data` volume is mounted at `/mnt/filebrowser`. This gives Sonarr access to qBittorrent downloads (e.g. `/mnt/filebrowser/qbittorrent-downloads`) and media folders (e.g. `/mnt/filebrowser/jellyfin/shows`). Configure these paths as root folders in **Settings → Media Management**.
 
 ---
 
@@ -88,7 +91,13 @@ All Sonarr configuration is done through the web UI. No StartOS-side config is e
 
 ## Dependencies
 
-None. To use Prowlarr for indexer management, install Prowlarr separately and connect it via **Settings → Apps** in Prowlarr.
+| Dependency   | Required | Purpose                                                              |
+| ------------ | -------- | -------------------------------------------------------------------- |
+| File Browser | Optional | Shared storage for downloads and media folders                       |
+| Prowlarr     | Optional | Indexer manager — syncs all trackers to Sonarr automatically        |
+| qBittorrent  | Optional | Download client — add via Settings → Download Clients               |
+
+To use Prowlarr, install it separately and connect it via **Settings → Apps** in Prowlarr. To use File Browser shared storage, install File Browser and Sonarr will automatically mount its volume.
 
 ---
 
@@ -120,8 +129,10 @@ image: lscr.io/linuxserver/sonarr:4.0.17.2952-ls312
 architectures: [x86_64, aarch64]
 volumes:
   main: /config
+  filebrowser(data): /mnt/filebrowser  # optional, mounted when filebrowser is installed
 ports:
   ui: 8989
-dependencies: none
+dependencies:
+  filebrowser: optional  # kind: exists, >=2.62.2:0
 actions: none
 ```

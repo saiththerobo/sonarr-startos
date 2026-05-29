@@ -26,5 +26,20 @@ export const manifest = setupManifest({
     start: null,
     stop: null,
   },
-  dependencies: {},
+  dependencies: {
+    filebrowser: {
+      description: {
+        en_US: 'Used to save downloads and serve media from File Browser shared storage',
+        es_ES: 'Usado para guardar descargas y servir contenido desde File Browser',
+        de_DE: 'Wird verwendet, um Downloads zu speichern und Medien aus File Browser bereitzustellen',
+        pl_PL: 'Uzywany do zapisywania pobran i serwowania mediow z File Browser',
+        fr_FR: 'Utilise pour enregistrer les telechargements et servir les medias depuis File Browser',
+      },
+      optional: true,
+      metadata: {
+        title: 'File Browser',
+        icon: 'https://raw.githubusercontent.com/Start9Labs/filebrowser-startos/fbf1fefb51cca9731f2a9a9e6f790ca150aa9d04/icon.svg',
+      },
+    },
+  },
 })

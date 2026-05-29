@@ -1,3 +1,4 @@
+import { manifest as filebrowserManifest } from 'filebrowser-startos/startos/manifest'
 import { i18n } from './i18n'
 import { sdk } from './sdk'
 import { uiPort } from './utils'
@@ -5,12 +6,20 @@ import { uiPort } from './utils'
 export const main = sdk.setupMain(async ({ effects }) => {
   console.info(i18n('Starting Sonarr'))
 
-  const mounts = sdk.Mounts.of().mountVolume({
-    volumeId: 'main',
-    subpath: null,
-    mountpoint: '/config',
-    readonly: false,
-  })
+  const mounts = sdk.Mounts.of()
+    .mountVolume({
+      volumeId: 'main',
+      subpath: null,
+      mountpoint: '/config',
+      readonly: false,
+    })
+    .mountDependency<typeof filebrowserManifest>({
+      dependencyId: 'filebrowser',
+      volumeId: 'data',
+      subpath: null,
+      mountpoint: '/mnt/filebrowser',
+      readonly: false,
+    })
 
   const sonarrSub = await sdk.SubContainer.of(
     effects,

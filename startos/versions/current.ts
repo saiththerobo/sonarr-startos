@@ -1,7 +1,7 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '4.0.17:4',
+  version: '4.0.17:5',
   releaseNotes: {
     en_US: 'Add File Browser volume mount for shared downloads and media.',
     es_ES: 'Lanzamiento inicial de Sonarr en StartOS.',

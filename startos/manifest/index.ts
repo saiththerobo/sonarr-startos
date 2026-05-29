@@ -36,7 +36,10 @@ export const manifest = setupManifest({
         fr_FR: 'Utilise pour enregistrer les telechargements et servir les medias depuis File Browser',
       },
       optional: true,
-      s9pk: null,
+      metadata: {
+        title: 'File Browser',
+        icon: 'https://raw.githubusercontent.com/Start9Labs/filebrowser-startos/fbf1fefb51cca9731f2a9a9e6f790ca150aa9d04/icon.svg',
+      },
     },
   },
 })
